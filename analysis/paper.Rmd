@@ -1,0 +1,42 @@
+---
+title: "Stone artefact orientations at Madjedbebe, northern Australia"
+output: 
+  bookdown::html_document2:
+    number_sections: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+
+## Excavations at Madjedbebe
+
+
+## Materials and Methods
+
+
+## Results
+
+### Artefact orientations at Madjedbebe
+
+- upper phases: panel plot, stat tests
+- phase two front: panel plot, stat tests
+- phase two back: panel plot, stat tests
+
+## Discussion 
+
+### Comparison with orientations from a trampling experiment
+
+### Comparison with orientations from simulated terrains
+
+- Benn diagram showing all of the above
+
+## Conclusion
+
+## References
+
+
+
