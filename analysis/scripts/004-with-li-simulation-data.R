@@ -2,7 +2,7 @@
 
 # Data from Li et al 2021
 
-li <- list.files(here::here("data"), pattern = "twoshots", full.names = TRUE)
+li <- list.files(here::here("analysis/data"), pattern = "twoshots", full.names = TRUE)
 terrain <- str_extract(basename(li), ".*_") %>%  str_remove("_")
 
 li_tbl <-
@@ -23,7 +23,7 @@ plot_li <- ~{benn_diagram_for_all_units(xyz = li_tbl)}
 library(cowplot)
 ggdraw(plot_li)
 
-ggsave(here::here("figures/benn_diagram_for_li_et_al.png"),
+ggsave(here::here("analysis/figures/benn_diagram_for_li_et_al.png"),
        height = 5,
        width = 5,
        dpi = 900)
@@ -43,7 +43,7 @@ for(i in unique(li_tbl$phase_groups)){
   ggdraw(the_plot)
 
   # save the plot
-  ggsave(here::here(paste0("figures/panel_plot_for_li_", i, ".png")),
+  ggsave(here::here(paste0("analysis/figures/panel_plot_for_li_", i, ".png")),
          height = 6,
          width = 10,
          dpi = 900)

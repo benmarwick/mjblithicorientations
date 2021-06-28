@@ -5,7 +5,7 @@ library(tidyverse)
 library(ggpubr)
 
 # we have made a few minor changes to McPherron's code, so we use our local version
-source(here::here("McPherron/orientations.R"))
+source(here::here("analysis/McPherron/orientations.R"))
 
 mjb <- lithics_with_two_points_mcpherron_position_phases
 
@@ -36,7 +36,7 @@ plot_1 <- ~{benn_diagram_for_all_units(xyz = mjb_phase_groups_front_back)}
 library(cowplot)
 ggdraw(plot_1)
 
-ggsave(here::here("figures/benn_diagram_for_all_units.png"),
+ggsave(here::here("analysis/figures/benn_diagram_for_all_units.png"),
        height = 5,
        width = 5,
        dpi = 900)
@@ -61,7 +61,7 @@ for(i in unique(mjb_phase_groups_front_back$phase_groups)){
   ggdraw(the_plot)
 
   # save the plot
-  ggsave(here::here(paste0("figures/panel_plot_for_", i, ".png")),
+  ggsave(here::here(paste0("analysis/figures/panel_plot_for_", i, ".png")),
          height = 6,
          width = 10,
          dpi = 900)

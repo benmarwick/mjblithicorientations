@@ -11,10 +11,10 @@ library(plotly)
 # https://doi.org/10.1038/nature22968
 
 # to load the phases() functions
-source(here::here("McPherron/orientations.R"))
+source(here::here("analysis/McPherron/orientations.R"))
 
 cleaned_rotated_points_in_main_excavation_area <-
-  readRDS(here::here("data/cleaned_rotated_points_in_main_excavation_area.rds"))
+  readRDS(here::here("analysis/data/cleaned_rotated_points_in_main_excavation_area.rds"))
 
 # end levels to check geometry
 el <-

@@ -2,7 +2,7 @@
 
 # Data from Marwick et al 2017, a trampling experiment at MJB
 
-tramp <- read_csv(here::here("data/trampling.csv"))
+tramp <- read_csv(here::here("analysis/data/trampling.csv"))
 
 # filter to keep only lithics with exactly 2 total station points,
 # suitable for orientation, etc. analysis
@@ -53,7 +53,7 @@ plot_2 <- ~{benn_diagram_for_all_units(xyz = mjb_phase_groups_front_back_tramp)}
 library(cowplot)
 ggdraw(plot_2)
 
-ggsave(here::here("figures/benn_diagram_for_all_units_and_trampling.png"),
+ggsave(here::here("analysis/figures/benn_diagram_for_all_units_and_trampling.png"),
        height = 5,
        width = 5,
        dpi = 900)
@@ -73,7 +73,7 @@ for(i in unique(tramp_with_two_points_mcpherron$phase_groups)){
   ggdraw(the_plot)
 
   # save the plot
-  ggsave(here::here(paste0("figures/panel_plot_for_tramp_", i, ".png")),
+  ggsave(here::here(paste0("analysis/figures/panel_plot_for_tramp_", i, ".png")),
          height = 6,
          width = 10,
          dpi = 900)
