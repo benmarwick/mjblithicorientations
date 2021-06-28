@@ -45,11 +45,12 @@ installed on your computer the [R
 software](https://cloud.r-project.org/) itself and optionally [RStudio
 Desktop](https://rstudio.com/products/rstudio/download/).
 
-You can download the compendium as a zip from from this URL:
-[master.zip](/archive/master.zip). After unzipping: - open the `.Rproj`
-file in RStudio - run `renv::restore()` to ensure you have the packages
-this analysis depends on (this will install any you don’t have) -
-finally, open `analysis/paper/paper.Rmd` and knit to produce the
+You can download the compendium as a zip from from this URL:  
+[master.zip](/archive/master.zip). After unzipping:  
+- open the `.Rproj` file in RStudio on your computer  
+- run `renv::restore()` to ensure you have the packages this analysis
+depends on (this will install any you don’t have)  
+- finally, open `analysis/paper/paper.Rmd` and knit to produce the
 `paper.docx`, or run `rmarkdown::render("analysis/paper/paper.Rmd")` in
 the R console, or run the code in the script files.
 
