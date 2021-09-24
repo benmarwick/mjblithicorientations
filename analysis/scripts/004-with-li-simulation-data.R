@@ -16,6 +16,11 @@ li_tbl <-
     phase_groups == 3 ~ terrain[3]
   ))
 
+# join Li et al with archaeological data
+li_tbl <-
+  mjb_phase_groups_front_back %>%
+  bind_rows(li_tbl)
+
 # using the function in orientations.R, now showing the archaeological and trampling artefacts
 plot_li <- ~{benn_diagram_for_all_units(xyz = li_tbl)}
 

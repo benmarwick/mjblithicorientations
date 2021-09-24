@@ -3,6 +3,7 @@ library(fields)
 library(circular)
 library(tidyverse)
 library(ggpubr)
+library(gridGraphics)
 
 # we have made a few minor changes to McPherron's code, so we use our local version
 source(here::here("analysis/McPherron/orientations.R"))

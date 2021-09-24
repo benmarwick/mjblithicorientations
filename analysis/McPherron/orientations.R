@@ -1176,7 +1176,7 @@ make_benn_rose_plots_panel <- function(xyz_level,
   par(mfrow= c(1,3))
 
   # reference orientation data from Lenoble and Bertran (2004), from McPherron (2018) markdown file
-  lenoble_and_bertran = readRDS(here::here('McPherron/Lenoble_and_Bertran_2004.RDS')) %>%
+  lenoble_and_bertran = readRDS(here::here('analysis/McPherron/Lenoble_and_Bertran_2004.RDS')) %>%
     filter(Type %in% c('Debris Flow','Runoff Shallow','Runoff Steep','Solifluction'))
 
   # color for Lenoble and Bertran reference

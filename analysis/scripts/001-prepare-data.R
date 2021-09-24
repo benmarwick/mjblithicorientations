@@ -25,6 +25,29 @@ el <-
           Y1 = Ynew,
           Z1 = depth_below_ground_surface)
 
+# inspect the end levels to orient ourselves
+
+el_plan <-
+ggplot(el) +
+  aes(X1, Z1, label = Description) +
+  geom_point()  +
+  scale_y_reverse() +
+  coord_equal()
+
+el_section <-
+  ggplot(el) +
+    aes(X1, Y1, label = Description) +
+    geom_point()  +
+    scale_y_reverse() +
+  coord_equal()
+
+library(cowplot)
+plot_grid(el_plan,
+          el_section,
+          align = "h",
+          axis = "lr",
+          ncol = 1)
+
 # filter to keep only lithics with exactly 2 total station points,
 # suitable for orientation, etc. analysis
 lithics_with_two_points <-
@@ -83,6 +106,7 @@ which_pair_has_max_dist_df <-
   nest() %>%
   mutate(max_dists = map(data, ~which_pair_has_max_dist(.x)$max_dist)) %>%
   unnest(max_dists)
+
 # they are all crazy large, probably not the artefacts we are looking for
 
 # get into format x1, y1, z1, x2, y2, z2 for McPherron's workflow
@@ -178,46 +202,120 @@ ggplot(lithics_with_two_points_mcpherron_position_phases,
   coord_polar(start = 0)
 
 # plan view
-p1 <-
+p1a <-
   ggplot() +
   geom_segment(data = lithics_with_two_points_mcpherron_position_phases,
                aes(x = X1,
                    y = Y1,
                    xend = X2,
-                   yend = Y2),
-               colour = "red") +
-  theme_minimal() +
-  coord_equal()
+                   yend = Y2,
+               colour = as.factor(phase))) +
+  coord_equal(ratio = 1,
+              xlim = c(-4, 3),
+              ylim = c(-3, 3)) +
+  guides(colour = FALSE)
 
-p1
+# add site grid and labels
+row_c = c(2.35, 1.4, 0.4, -0.6, -1.6, -2.6, -3.6)
+col_c = c(-1.5, -0.5, 0.5, 1.5, 2.5)
+col_labels <-
+  data_frame(names = 6:1,
+             row_mids =  row_c[-length(row_c)] + diff(row_c)/2)
+row_labels <-
+  data_frame(names = LETTERS[2:5],
+             col_mids =  col_c[-length(col_c)] + diff(col_c)/2)
+row_c_df <- enframe(row_c)
+col_c_df <- enframe(col_c)
 
-p1 +
+p1b <-
+p1a +
+  theme_void() +
   geom_point(data = el,
              aes(x = X1,
                  y = Y1),
-             alpha = 0.02)
+             alpha = 0.0) +
+  geom_segment(data = row_c_df,
+               aes(x = value,
+                   y = rep(first(col_c_df$value), nrow(row_c_df)),
+                   xend = value,
+                   yend = rep(last(col_c_df$value), nrow(row_c_df))),
+               colour = "black") +
+  # show grid lines
+  geom_segment(data = col_c_df,
+               aes(y = value,
+                   x = rep(last(row_c_df$value), nrow(col_c_df)),
+                   yend = value,
+                   xend = rep(first(row_c_df$value), nrow(col_c_df))),
+               colour = "black") +
+  # show grid labels
+  geom_text(data = col_labels,
+            aes(x = row_mids,
+                y = rep(-1.75, nrow(col_labels)),
+                label = names),
+            fontface = "bold",
+            size = 5) +
+  geom_text(data = row_labels,
+            aes(y = col_mids,
+                x = rep(-3.8, nrow(row_labels)),
+                label = names),
+            fontface = "bold",
+            size = 5)
 
 # section view
-p2 <-
+p2a <-
   ggplot() +
   geom_segment(data = lithics_with_two_points_mcpherron_position_phases,
-               aes(x = Y1,
+               aes(x = X1,
                    y = Z1,
-                   xend = Y2,
+                   xend = X2,
                    yend = Z2,
                    colour = as.factor(phase))) +
   scale_y_reverse() +
-  theme_minimal() +
-  coord_equal()
+  guides(colour = FALSE) +
+  coord_equal(ratio = 1,
+              xlim = c(-4, 3),
+              ylim = c(3, 0))
 
-p2
+# add grid lines and labels
+row_c = row_c
+nums =  6:1
+row_mids <-  row_c[-length(row_c)] + diff(row_c)/2
 
-p2 +
+p2b <-
+p2a +
+  theme_void() +
   geom_point(data = el,
-             aes(x = Y1,
+             aes(x = X1,
                  y = Z1),
-             alpha = 0.03)
+             alpha = 0.0) +
+  geom_segment(aes(x = row_c,
+                   y = 3,
+                   xend = row_c,
+                   yend = 0)) +
+  annotate("text",
+           x = row_mids,
+           y = 3,
+           label = nums,
+           fontface = "bold",
+           size = 5)
 
-# plotly::ggplotly(p2)
+
+# combine views, cowplot doesn't work with fixed aspect ratios :(
+p1b
+
+ggsave(here::here("analysis/figures/mjb_lithic_orientations_plan.png"),
+       height = 5,
+       width = 7,
+       dpi = 900)
+
+
+p2b
+
+ggsave(here::here("analysis/figures/mjb_lithic_orientations_section.png"),
+       height = 5,
+       width = 7,
+       dpi = 900)
+
+
 
 
