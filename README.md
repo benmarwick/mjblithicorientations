@@ -19,7 +19,7 @@ Please cite this compendium as:
 > Lynley Wallis, Mike Smith, & Chris Clarkson (2021). *Compendium of R
 > code and data for Artefact orientations and site formation processes
 > at Madjebebe, northern Australia*. Accessed 28 Jun 2021. Online at
-> <https://doi.org/10.17605/OSF.IO/7B5QD>
+> <https://github.com/benmarwick/mjblithicorientations>
 
 ## Contents
 
